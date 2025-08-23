@@ -64,8 +64,9 @@ export default function Home() {
         <div className="flex min-h-screen justify-center items-center h-full mx-16">
           <h2 className="text-2xl text-white md:text-5xl">
             We create timeless experiences for our guests, balancing modern
-            design with a focus on the present, while upholding hospitality's
-            core values of generosity and compassion to shape lasting memories.{" "}
+            design with a focus on the present, while upholding
+            hospitality&apos;s core values of generosity and compassion to shape
+            lasting memories.{" "}
           </h2>
         </div>
       </div>
