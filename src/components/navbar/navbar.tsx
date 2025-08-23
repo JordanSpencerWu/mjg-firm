@@ -71,8 +71,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-[var(--background)] sticky top-0 z-50 md:h-[72px] h-16">
-      <div className="mx-4 md:mx-36 h-full">
+    <nav
+      className={clsx(
+        isOpen && "h-screen absolute",
+        "bg-[var(--background)] sticky top-0 z-50"
+      )}
+    >
+      <div className="mx-4 md:mx-36 md:h-[72px] h-16">
         <div className="flex h-full justify-between items-center">
           <div className="flex-shrink-0">
             <Link
@@ -162,70 +167,67 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="md:hidden fixed w-full">
-          <div className="absolute left-0 right-0 bg-[var(--background)]">
-            <Link
-              href={pathTo.home}
-              className={clsx(
-                pathname == pathTo.home
-                  ? "text-[var(--color-primary)]"
-                  : "text-[var(--color-secondary)]",
-                "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
-              )}
-              onClick={handleClose}
-            >
-              <span className="flex items-center gap-1">{HOME_NAV_NAME}</span>
-            </Link>
-            <div
-              className={clsx(
-                pathname.includes("/portfolio")
-                  ? "text-[var(--color-primary)]"
-                  : "text-[var(--color-secondary)]",
-                "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] transition-none flex justify-between"
-              )}
-              onClick={() => setMobilePortfolioOpen((previous) => !previous)}
-            >
-              <span className="flex items-center gap-1">
-                {PORTFOLIO_NAV_NAME}
-              </span>
-              {isMobilePortfolioOpen ? (
-                <ChevronUp size={28} />
-              ) : (
-                <ChevronDown size={28} />
-              )}
-            </div>
-            {isMobilePortfolioOpen &&
-              PORTFOLIO_NAV_LINKS.map(({ name, href: portfolioHref }) => (
-                <Link
-                  key={portfolioHref}
-                  href={portfolioHref}
-                  className={clsx(
-                    pathname == portfolioHref
-                      ? "text-[var(--color-primary)]"
-                      : "text-[var(--color-secondary)]",
-                    "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
-                  )}
-                  onClick={handleClose}
-                >
-                  <span className="ml-7.5 flex items-center gap-1">{name}</span>
-                </Link>
-              ))}
-            <Link
-              href={pathTo.about}
-              className={clsx(
-                pathname == pathTo.about
-                  ? "text-[var(--color-primary)]"
-                  : "text-[var(--color-secondary)]",
-                "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
-              )}
-              onClick={handleClose}
-            >
-              <span className="flex items-center gap-1">{ABOUT_NAV_NAME}</span>
-            </Link>
+        <div className="">
+          <Link
+            href={pathTo.home}
+            className={clsx(
+              pathname == pathTo.home
+                ? "text-[var(--color-primary)]"
+                : "text-[var(--color-secondary)]",
+              "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+            )}
+            onClick={handleClose}
+          >
+            <span className="flex items-center gap-1">{HOME_NAV_NAME}</span>
+          </Link>
+          <div
+            className={clsx(
+              pathname.includes("/portfolio")
+                ? "text-[var(--color-primary)]"
+                : "text-[var(--color-secondary)]",
+              "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] transition-none flex justify-between"
+            )}
+            onClick={() => setMobilePortfolioOpen((previous) => !previous)}
+          >
+            <span className="flex items-center gap-1">
+              {PORTFOLIO_NAV_NAME}
+            </span>
+            {isMobilePortfolioOpen ? (
+              <ChevronUp size={28} />
+            ) : (
+              <ChevronDown size={28} />
+            )}
           </div>
+          {isMobilePortfolioOpen &&
+            PORTFOLIO_NAV_LINKS.map(({ name, href: portfolioHref }) => (
+              <Link
+                key={portfolioHref}
+                href={portfolioHref}
+                className={clsx(
+                  pathname == portfolioHref
+                    ? "text-[var(--color-primary)]"
+                    : "text-[var(--color-secondary)]",
+                  "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+                )}
+                onClick={handleClose}
+              >
+                <span className="ml-7.5 flex items-center gap-1">{name}</span>
+              </Link>
+            ))}
+          <Link
+            href={pathTo.about}
+            className={clsx(
+              pathname == pathTo.about
+                ? "text-[var(--color-primary)]"
+                : "text-[var(--color-secondary)]",
+              "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+            )}
+            onClick={handleClose}
+          >
+            <span className="flex items-center gap-1">{ABOUT_NAV_NAME}</span>
+          </Link>
         </div>
       )}
     </nav>
