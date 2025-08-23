@@ -15,7 +15,7 @@ export default function Home() {
       start: "top 100px",
       end: "top",
       snap: {
-        snapTo: [0, 1],
+        snapTo: 1,
         duration: 0.3,
         ease: "power1.out",
         inertia: false,
