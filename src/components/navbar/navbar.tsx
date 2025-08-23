@@ -1,8 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Squash as Hamburger } from "hamburger-react";
 import clsx from "clsx";
 import { pathTo } from "@/utils/routes";
 
@@ -51,6 +52,7 @@ const PORTFOLIO_NAV_LINKS = [
 ];
 
 export default function Navbar() {
+  const [isOpen, setOpen] = useState(false);
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -87,6 +89,7 @@ export default function Navbar() {
                     {name}
                   </Link>
 
+                  {/* Portfolio drop down menu */}
                   {name == PORTFOLIO_NAV_NAME && (
                     <div className="absolute top-full left-0 mt-[12px] w-60 bg-[#e9e1d8] rounded-md shadow-lg opacity-0 invisible group-hover/navbar-item:opacity-100 group-hover/navbar-item:visible uppercase transition-all duration-200 z-50">
                       <div className="py-2">
@@ -116,21 +119,15 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button className="text-gray-700 hover:text-gray-900 p-2">
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </button>
+            <Hamburger
+              toggled={isOpen}
+              toggle={setOpen}
+              size={24}
+              color="#5f4738"
+              label="Show menu"
+              easing="ease-in"
+              rounded
+            />
           </div>
         </div>
       </div>
