@@ -73,8 +73,12 @@ export default function Navbar() {
   return (
     <nav
       className={clsx(
-        isOpen && "h-screen absolute",
-        "bg-[var(--background)] sticky top-0 z-50"
+        isOpen && "h-screen",
+        isOpen || (pathname === pathTo.home && "absolute"),
+        pathname === pathTo.home && !isOpen
+          ? "bg-transparent"
+          : "sticky bg-[var(--background)]",
+        "w-full top-0 z-50"
       )}
     >
       <div className="mx-4 md:mx-36 md:h-[72px] h-16">
@@ -82,7 +86,12 @@ export default function Navbar() {
           <div className="flex-shrink-0">
             <Link
               href="/"
-              className="text-2xl font-bold text-[var(--color-primary)]"
+              className={clsx(
+                pathname === pathTo.home && !isOpen
+                  ? "text-white"
+                  : "text-[var(--color-primary)]",
+                "text-2xl font-bold"
+              )}
             >
               MJG Firm
             </Link>
@@ -105,19 +114,25 @@ export default function Navbar() {
                     href={href}
                     className={clsx(
                       mounted &&
-                        (pathname == href ||
-                          (name == PORTFOLIO_NAV_NAME &&
+                        (pathname === href ||
+                          (name === PORTFOLIO_NAV_NAME &&
                             pathname.includes("/portfolio")))
-                        ? "text-[var(--color-primary)]"
+                        ? pathname === pathTo.home && !isOpen
+                          ? "text-white"
+                          : "text-[var(--color-primary)]"
+                        : pathname === pathTo.home && !isOpen
+                        ? "text-white"
                         : "text-[var(--color-secondary)]",
-                      "hover:text-[var(--color-primary)] px-3 py-2 rounded-md text-xl uppercase font-medium transition-colors group-hover/navbar-item:bg-[#e9e1d8]"
+                      pathname !== pathTo.home &&
+                        "hover:text-[var(--color-primary)] group-hover/navbar-item:bg-[#e9e1d8]",
+                      "px-3 py-2 rounded-md text-xl uppercase font-medium transition-colors"
                     )}
                   >
                     {name}
                   </Link>
 
                   {/* Portfolio drop down menu */}
-                  {name == PORTFOLIO_NAV_NAME && (
+                  {name === PORTFOLIO_NAV_NAME && (
                     <div
                       className={`absolute top-full left-0 mt-[12px] w-60 bg-[#e9e1d8] rounded-md shadow-lg uppercase transition-all duration-200 z-50 ${
                         isPortfolioHovered
@@ -132,7 +147,7 @@ export default function Navbar() {
                               key={portfolioHref}
                               href={portfolioHref}
                               className={clsx(
-                                mounted && pathname == portfolioHref
+                                mounted && pathname === portfolioHref
                                   ? "text-[var(--color-primary)]"
                                   : "text-[var(--color-secondary)]",
                                 "block px-4 py-2 text-base hover:text-[var(--color-primary)] transition-colors font-medium"
@@ -159,7 +174,9 @@ export default function Navbar() {
               toggled={isOpen}
               toggle={setOpen}
               size={24}
-              color="#5f4738"
+              color={
+                pathname === pathTo.home && !isOpen ? "#ffffff" : "#5f4738"
+              }
               label="Show menu"
               easing="ease-in"
               rounded
@@ -173,7 +190,7 @@ export default function Navbar() {
           <Link
             href={pathTo.home}
             className={clsx(
-              pathname == pathTo.home
+              pathname === pathTo.home
                 ? "text-[var(--color-primary)]"
                 : "text-[var(--color-secondary)]",
               "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
@@ -206,7 +223,7 @@ export default function Navbar() {
                 key={portfolioHref}
                 href={portfolioHref}
                 className={clsx(
-                  pathname == portfolioHref
+                  pathname === portfolioHref
                     ? "text-[var(--color-primary)]"
                     : "text-[var(--color-secondary)]",
                   "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
@@ -219,7 +236,7 @@ export default function Navbar() {
           <Link
             href={pathTo.about}
             className={clsx(
-              pathname == pathTo.about
+              pathname === pathTo.about
                 ? "text-[var(--color-primary)]"
                 : "text-[var(--color-secondary)]",
               "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
