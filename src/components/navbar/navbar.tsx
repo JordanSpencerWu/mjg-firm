@@ -57,6 +57,7 @@ const PORTFOLIO_NAV_LINKS = [
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
   const [isMobilePortfolioOpen, setMobilePortfolioOpen] = useState(false);
+  const [isPortfolioHovered, setIsPortfolioHovered] = useState(false);
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
@@ -84,7 +85,16 @@ export default function Navbar() {
           <div className="hidden md:block">
             <div className="flex min-w-0 space-x-2">
               {NAV_LINKS.map(({ name, href }) => (
-                <div key={href} className="relative group/navbar-item">
+                <div
+                  key={href}
+                  className="relative group/navbar-item"
+                  onMouseEnter={() =>
+                    name === PORTFOLIO_NAV_NAME && setIsPortfolioHovered(true)
+                  }
+                  onMouseLeave={() =>
+                    name === PORTFOLIO_NAV_NAME && setIsPortfolioHovered(false)
+                  }
+                >
                   <Link
                     key={href}
                     href={href}
@@ -103,7 +113,13 @@ export default function Navbar() {
 
                   {/* Portfolio drop down menu */}
                   {name == PORTFOLIO_NAV_NAME && (
-                    <div className="absolute top-full left-0 mt-[12px] w-60 bg-[#e9e1d8] rounded-md shadow-lg opacity-0 invisible group-hover/navbar-item:opacity-100 group-hover/navbar-item:visible uppercase transition-all duration-200 z-50">
+                    <div
+                      className={`absolute top-full left-0 mt-[12px] w-60 bg-[#e9e1d8] rounded-md shadow-lg uppercase transition-all duration-200 z-50 ${
+                        isPortfolioHovered
+                          ? "opacity-100 visible"
+                          : "opacity-0 invisible"
+                      }`}
+                    >
                       <div className="py-2">
                         {PORTFOLIO_NAV_LINKS.map(
                           ({ name, href: portfolioHref }) => (
@@ -116,6 +132,9 @@ export default function Navbar() {
                                   : "text-[var(--color-secondary)]",
                                 "block px-4 py-2 text-base hover:text-[var(--color-primary)] transition-colors font-medium"
                               )}
+                              onClick={() => {
+                                setIsPortfolioHovered(false);
+                              }}
                             >
                               {name}
                             </Link>
