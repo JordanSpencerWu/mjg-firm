@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
@@ -21,10 +20,6 @@ export default function Home() {
         ease: "power1.out",
         inertia: false,
       },
-      onEnter: () => console.log("Entered gradient section"),
-      onLeave: () => console.log("Left gradient section"),
-      onEnterBack: () => console.log("Entered gradient section from bottom"),
-      onLeaveBack: () => console.log("Left gradient section from top"),
     });
 
     return () => {
@@ -48,6 +43,19 @@ export default function Home() {
         />
         Your browser does not support the video tag.
       </video>
+
+      {/* Video Overlay Text */}
+      <div className="absolute h-screen inset-0 z-10">
+        <div className="flex flex-col px-8 justify-center md:justify-between md:px-32 md:py-32 h-full">
+          <p className="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-6xl">
+            WHERE NOW IS <br /> FOREVER
+          </p>
+          <p className="text-xl md:text-xl lg:text-2xl">
+            Immerse in the essence of the Red Sea while embracing a <br />
+            sustainable future surrounded by breathtaking beauty.
+          </p>
+        </div>
+      </div>
 
       <div
         ref={gradientSectionRef}
