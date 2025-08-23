@@ -5,14 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Squash as Hamburger } from "hamburger-react";
 import clsx from "clsx";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { pathTo } from "@/utils/routes";
 
+const HOME_NAV_NAME = "Home";
+const ABOUT_NAV_NAME = "About Us";
 const PORTFOLIO_NAV_NAME = "Portfolio";
 
 const NAV_LINKS = [
   {
     href: pathTo.home,
-    name: "Home",
+    name: HOME_NAV_NAME,
   },
   {
     href: "#",
@@ -20,7 +23,7 @@ const NAV_LINKS = [
   },
   {
     href: pathTo.about,
-    name: "About Us",
+    name: ABOUT_NAV_NAME,
   },
 ];
 
@@ -53,12 +56,18 @@ const PORTFOLIO_NAV_LINKS = [
 
 export default function Navbar() {
   const [isOpen, setOpen] = useState(false);
+  const [isMobilePortfolioOpen, setMobilePortfolioOpen] = useState(false);
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const handleClose = () => {
+    setOpen(false);
+    setMobilePortfolioOpen(false);
+  };
 
   return (
     <nav className="bg-[var(--background)] sticky top-0 z-50 md:h-[72px] h-16">
@@ -139,16 +148,64 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden fixed w-full">
           <div className="absolute left-0 right-0 bg-[var(--background)]">
-            {NAV_LINKS.map(({ name, href }) => (
-              <Link
-                key={href}
-                href={href}
-                className="text-xl text-[var(--color-secondary)] px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
-                onClick={() => setOpen(false)}
-              >
-                <span className="flex items-center gap-1">{name}</span>
-              </Link>
-            ))}
+            <Link
+              href={pathTo.home}
+              className={clsx(
+                pathname == pathTo.home
+                  ? "text-[var(--color-primary)]"
+                  : "text-[var(--color-secondary)]",
+                "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+              )}
+              onClick={handleClose}
+            >
+              <span className="flex items-center gap-1">{HOME_NAV_NAME}</span>
+            </Link>
+            <div
+              className={clsx(
+                pathname.includes("/portfolio")
+                  ? "text-[var(--color-primary)]"
+                  : "text-[var(--color-secondary)]",
+                "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] transition-none flex justify-between"
+              )}
+              onClick={() => setMobilePortfolioOpen((previous) => !previous)}
+            >
+              <span className="flex items-center gap-1">
+                {PORTFOLIO_NAV_NAME}
+              </span>
+              {isMobilePortfolioOpen ? (
+                <ChevronUp size={28} />
+              ) : (
+                <ChevronDown size={28} />
+              )}
+            </div>
+            {isMobilePortfolioOpen &&
+              PORTFOLIO_NAV_LINKS.map(({ name, href: portfolioHref }) => (
+                <Link
+                  key={portfolioHref}
+                  href={portfolioHref}
+                  className={clsx(
+                    pathname == portfolioHref
+                      ? "text-[var(--color-primary)]"
+                      : "text-[var(--color-secondary)]",
+                    "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+                  )}
+                  onClick={handleClose}
+                >
+                  <span className="ml-7.5 flex items-center gap-1">{name}</span>
+                </Link>
+              ))}
+            <Link
+              href={pathTo.about}
+              className={clsx(
+                pathname == pathTo.about
+                  ? "text-[var(--color-primary)]"
+                  : "text-[var(--color-secondary)]",
+                "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+              )}
+              onClick={handleClose}
+            >
+              <span className="flex items-center gap-1">{ABOUT_NAV_NAME}</span>
+            </Link>
           </div>
         </div>
       )}
