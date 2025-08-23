@@ -92,6 +92,7 @@ export default function Navbar() {
                   : "text-[var(--color-primary)]",
                 "text-2xl font-bold"
               )}
+              onClick={handleClose}
             >
               MJG Firm
             </Link>

@@ -22,6 +22,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Gradient Animations */
 @keyframes gradient-move {
   0% {
     background-position: 0% 50%;
@@ -38,4 +39,43 @@ body {
   background: linear-gradient(-45deg, #dac7bc, #b49e8f, #5f4738, #30241c);
   background-size: 400% 400%;
   animation: gradient-move 20s ease infinite;
+}
+
+/* Fade-in Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease-out forwards;
+}
+
+.animate-fade-in-delay {
+  animation: fade-in 1s ease-out 0.5s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+.animate-fade-in-up-delay {
+  animation: fade-in-up 1s ease-out 0.5s forwards;
+  opacity: 0;
 }
