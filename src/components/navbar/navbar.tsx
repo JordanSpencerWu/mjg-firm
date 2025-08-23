@@ -65,7 +65,10 @@ export default function Navbar() {
       <div className="mx-4 md:mx-36 h-full">
         <div className="flex h-full justify-between items-center">
           <div className="flex-shrink-0">
-            <Link href="/" className="text-2xl font-bold text-gray-900">
+            <Link
+              href="/"
+              className="text-2xl font-bold text-[var(--color-primary)]"
+            >
               MJG Firm
             </Link>
           </div>
@@ -131,6 +134,24 @@ export default function Navbar() {
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {isOpen && (
+        <div className="md:hidden fixed w-full">
+          <div className="absolute left-0 right-0 bg-[var(--background)]">
+            {NAV_LINKS.map(({ name, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-xl text-[var(--color-secondary)] px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+                onClick={() => setOpen(false)}
+              >
+                <span className="flex items-center gap-1">{name}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
