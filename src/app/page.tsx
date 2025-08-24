@@ -6,11 +6,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const LOCATIONS = ["London", "Miami", "Istanbul", "Madrid", "Saudi Arabia"];
+
 export default function Home() {
   useEffect(() => {
     const sections = document.querySelectorAll("section");
-
-    console.log(sections);
 
     sections.forEach((section) => {
       ScrollTrigger.create({
@@ -26,6 +26,49 @@ export default function Home() {
       });
     });
 
+    const wordSpans = document.querySelectorAll(".stagger-span");
+    gsap.fromTo(
+      wordSpans,
+      {
+        opacity: 0,
+        y: 30,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        stagger: 0.05,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#video-section",
+          start: "center",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    const listItems = document.querySelectorAll(".stagger-li");
+    gsap.fromTo(
+      listItems,
+      {
+        opacity: 0,
+        y: 50,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        delay: 0.3,
+        stagger: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: "#message-section",
+          start: "center",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
@@ -35,11 +78,13 @@ export default function Home() {
     <div className="relative min-h-screen animate-fade-in">
       {/* Background Video */}
       <video
+        id="video-section"
+        className="inset-0 w-full h-screen object-cover z-0"
+        poster="/video-first-frame.jpg"
         autoPlay
         loop
         muted
         playsInline
-        className="inset-0 w-full h-screen object-cover z-0"
       >
         <source
           src="/Shebara_90s_16x9_4_K_English_Only_Music_and_Logo_4e51af11f6.mp4"
@@ -62,49 +107,62 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="relative leading-0 gradient-animation">
+      <section
+        id="message-section"
+        className="relative leading-0 gradient-animation"
+      >
         <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <p className="text-2xl text-white md:text-5xl">
-            We create timeless experiences for our guests, balancing modern
-            design with a focus on the present, while upholding
-            hospitality&apos;s core values of generosity and compassion to shape
-            lasting memories.{" "}
+          <p className="text-3xl text-white md:text-5xl">
+            {[
+              "We",
+              "create",
+              "timeless",
+              "experiences",
+              "for",
+              "our",
+              "guests,",
+              "balancing",
+              "modern",
+              "design",
+              "with",
+              "a",
+              "focus",
+              "on",
+              "the",
+              "present,",
+              "while",
+              "upholding",
+              "hospitality's",
+              "core",
+              "values",
+              "of",
+              "generosity",
+              "and",
+              "compassion",
+              "to",
+              "shape",
+              "lasting",
+              "memories.",
+            ].map((word, index) => (
+              <span key={index} className="stagger-span inline-block mr-1.5">
+                {word}
+              </span>
+            ))}
           </p>
         </div>
       </section>
 
-      <section className="relative leading-0">
-        <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <h2 className="text-2xl text-white md:text-5xl uppercase">London</h2>
-        </div>
-      </section>
-
-      <section className="relative leading-0 bg-[#b49e8f]">
-        <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <h2 className="text-2xl text-white md:text-5xl uppercase">Miami</h2>
-        </div>
-      </section>
-
-      <section className="relative leading-0 bg-[#5f4738]">
-        <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <h2 className="text-2xl text-white md:text-5xl uppercase">
-            Istanbul
-          </h2>
-        </div>
-      </section>
-
-      <section className="relative leading-0 bg-[#b49e8f]">
-        <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <h2 className="text-2xl text-white md:text-5xl uppercase">Madrid</h2>
-        </div>
-      </section>
-
-      <section className="relative leading-0">
-        <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <h2 className="text-2xl text-white md:text-5xl uppercase">
-            Saudi Arabia
-          </h2>
-        </div>
+      <section
+        id="locations-section"
+        className="relative leading-0 flex flex-col h-screen justify-center text-center items-center mx-16"
+      >
+        <ul className="text-4xl text-[var(--color-primary)] md:text-8xl font-bold uppercase">
+          {LOCATIONS.map((location) => (
+            <li key={location} className="stagger-li mt-4">
+              {location}
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );
