@@ -63,11 +63,18 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
+
+    if (pathname.includes("/portfolio")) {
+      setMobilePortfolioOpen(true);
+    }
   }, []);
 
-  const handleClose = () => {
+  const handleClose = (shouldCloseMobilePortfolioOpen = true) => {
     setOpen(false);
-    setMobilePortfolioOpen(false);
+
+    if (shouldCloseMobilePortfolioOpen) {
+      setMobilePortfolioOpen(false);
+    }
   };
 
   return (
@@ -92,7 +99,7 @@ export default function Navbar() {
                   : "text-[var(--color-primary)]",
                 "text-2xl font-bold"
               )}
-              onClick={handleClose}
+              onClick={() => handleClose()}
             >
               MJG Firm
             </Link>
@@ -176,7 +183,7 @@ export default function Navbar() {
               toggle={setOpen}
               size={24}
               color={
-                pathname === pathTo.home && !isOpen ? "#ffffff" : "#5f4738"
+                pathname === pathTo.home && !isOpen ? "#f1ece8" : "#5f4738"
               }
               label="Show menu"
               easing="ease-in"
@@ -187,7 +194,7 @@ export default function Navbar() {
       </div>
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="">
+        <div className="animate-fade-in">
           <Link
             href={pathTo.home}
             className={clsx(
@@ -196,7 +203,7 @@ export default function Navbar() {
                 : "text-[var(--color-secondary)]",
               "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
             )}
-            onClick={handleClose}
+            onClick={() => handleClose()}
           >
             <span className="flex items-center gap-1">{HOME_NAV_NAME}</span>
           </Link>
@@ -229,7 +236,7 @@ export default function Navbar() {
                     : "text-[var(--color-secondary)]",
                   "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
                 )}
-                onClick={handleClose}
+                onClick={() => handleClose(false)}
               >
                 <span className="ml-7.5 flex items-center gap-1">{name}</span>
               </Link>
@@ -242,7 +249,7 @@ export default function Navbar() {
                 : "text-[var(--color-secondary)]",
               "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
             )}
-            onClick={handleClose}
+            onClick={() => handleClose()}
           >
             <span className="flex items-center gap-1">{ABOUT_NAV_NAME}</span>
           </Link>
