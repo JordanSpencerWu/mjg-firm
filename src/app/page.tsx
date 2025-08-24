@@ -16,17 +16,17 @@ export default function Home() {
   const [isVideoMuted, setVideoMuted] = useState(true);
 
   useEffect(() => {
-    let locations = document.querySelectorAll<HTMLElement>(".stagger-li");
+    const locations = document.querySelectorAll<HTMLElement>(".stagger-li");
 
     locations.forEach((element) => {
-      let innerText = element.innerText;
+      const innerText = element.innerText;
       element.innerHTML = "";
 
-      let textContainer = document.createElement("div");
+      const textContainer = document.createElement("div");
       textContainer.classList.add("block");
 
-      for (let letter of innerText) {
-        let span = document.createElement("span");
+      for (const letter of innerText) {
+        const span = document.createElement("span");
         span.innerText = letter.trim() === "" ? "\xa0" : letter;
         span.classList.add("letter");
         textContainer.appendChild(span);
