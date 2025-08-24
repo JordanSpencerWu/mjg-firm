@@ -16,6 +16,26 @@ export default function Home() {
   const [isVideoMuted, setVideoMuted] = useState(true);
 
   useEffect(() => {
+    let locations = document.querySelectorAll<HTMLElement>(".stagger-li");
+
+    locations.forEach((element) => {
+      let innerText = element.innerText;
+      element.innerHTML = "";
+
+      let textContainer = document.createElement("div");
+      textContainer.classList.add("block");
+
+      for (let letter of innerText) {
+        let span = document.createElement("span");
+        span.innerText = letter.trim() === "" ? "\xa0" : letter;
+        span.classList.add("letter");
+        textContainer.appendChild(span);
+      }
+
+      element.appendChild(textContainer);
+      element.appendChild(textContainer.cloneNode(true));
+    });
+
     const sections = document.querySelectorAll("section");
 
     sections.forEach((section) => {
@@ -161,8 +181,9 @@ export default function Home() {
             className="text-3xl text-white/12 md:text-5xl"
           >
             We create timeless experiences for our guests, balancing modern
-            design with a focus on the present, while upholding hospitality&apos;s
-            core values of generosity and compassion to shape lasting memories.
+            design with a focus on the present, while upholding
+            hospitality&apos;s core values of generosity and compassion to shape
+            lasting memories.
           </p>
         </div>
       </section>
@@ -173,7 +194,10 @@ export default function Home() {
       >
         <ul className="text-4xl text-[var(--color-primary)] md:text-8xl font-bold uppercase">
           {LOCATIONS.map((location) => (
-            <li key={location} className="stagger-li mt-4">
+            <li
+              key={location}
+              className="stagger-li mt-4 overflow-hidden h-[96px] cursor-pointer"
+            >
               {location}
             </li>
           ))}
