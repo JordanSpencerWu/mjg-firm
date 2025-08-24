@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play, Pause, VolumeOff, Volume2 } from "lucide-react";
+import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,26 +32,28 @@ export default function Home() {
       });
     });
 
-    const wordSpans = document.querySelectorAll(".stagger-span");
-    gsap.fromTo(
-      wordSpans,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.05,
-        ease: "power2.out",
+    const messageSection = new SplitType("#split-message-section", {
+      types: "words,chars",
+    });
+
+    gsap
+      .timeline({
         scrollTrigger: {
           trigger: "#video-section",
           start: "center",
-          toggleActions: "play none none reverse",
+          end: "+=45%",
+          scrub: 0.5,
         },
-      }
-    );
+      })
+      .set(
+        messageSection.chars,
+        {
+          duration: 0.3,
+          color: "#fff",
+          stagger: 0.1,
+        },
+        0.1
+      );
 
     const listItems = document.querySelectorAll(".stagger-li");
     gsap.fromTo(
@@ -153,42 +156,13 @@ export default function Home() {
         className="relative leading-0 gradient-animation"
       >
         <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <p className="text-3xl text-white md:text-5xl">
-            {[
-              "We",
-              "create",
-              "timeless",
-              "experiences",
-              "for",
-              "our",
-              "guests,",
-              "balancing",
-              "modern",
-              "design",
-              "with",
-              "a",
-              "focus",
-              "on",
-              "the",
-              "present,",
-              "while",
-              "upholding",
-              "hospitality's",
-              "core",
-              "values",
-              "of",
-              "generosity",
-              "and",
-              "compassion",
-              "to",
-              "shape",
-              "lasting",
-              "memories.",
-            ].map((word, index) => (
-              <span key={index} className="stagger-span inline-block mr-1.5">
-                {word}
-              </span>
-            ))}
+          <p
+            id="split-message-section"
+            className="text-3xl text-white/12 md:text-5xl"
+          >
+            We create timeless experiences for our guests, balancing modern
+            design with a focus on the present, while upholding hospitality's
+            core values of generosity and compassion to shape lasting memories.
           </p>
         </div>
       </section>
