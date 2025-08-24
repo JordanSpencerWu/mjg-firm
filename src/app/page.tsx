@@ -161,7 +161,7 @@ export default function Home() {
             className="text-3xl text-white/12 md:text-5xl"
           >
             We create timeless experiences for our guests, balancing modern
-            design with a focus on the present, while upholding hospitality's
+            design with a focus on the present, while upholding hospitality&apos;s
             core values of generosity and compassion to shape lasting memories.
           </p>
         </div>
