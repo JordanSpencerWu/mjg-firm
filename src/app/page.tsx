@@ -1,31 +1,36 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const gradientSectionRef = useRef(null);
-
   useEffect(() => {
-    ScrollTrigger.create({
-      trigger: gradientSectionRef.current,
-      start: "top 100px",
-      end: "top",
-      snap: {
-        snapTo: 0,
-        duration: 0.3,
-        ease: "power1.out",
-        inertia: false,
-      },
+    const sections = document.querySelectorAll("section");
+
+    console.log(sections);
+
+    sections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 100px",
+        end: "top",
+        snap: {
+          snapTo: 1,
+          duration: 0.3,
+          ease: "power1.out",
+          inertia: false,
+        },
+      });
     });
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
+
   return (
     <div className="relative min-h-screen animate-fade-in">
       {/* Background Video */}
@@ -57,19 +62,50 @@ export default function Home() {
         </div>
       </div>
 
-      <div
-        ref={gradientSectionRef}
-        className="relative leading-0 gradient-animation"
-      >
+      <section className="relative leading-0 gradient-animation">
         <div className="flex min-h-screen justify-center items-center h-full mx-16">
-          <h2 className="text-2xl text-white md:text-5xl">
+          <p className="text-2xl text-white md:text-5xl">
             We create timeless experiences for our guests, balancing modern
             design with a focus on the present, while upholding
             hospitality&apos;s core values of generosity and compassion to shape
             lasting memories.{" "}
+          </p>
+        </div>
+      </section>
+
+      <section className="relative leading-0">
+        <div className="flex min-h-screen justify-center items-center h-full mx-16">
+          <h2 className="text-2xl text-white md:text-5xl uppercase">London</h2>
+        </div>
+      </section>
+
+      <section className="relative leading-0 bg-[#b49e8f]">
+        <div className="flex min-h-screen justify-center items-center h-full mx-16">
+          <h2 className="text-2xl text-white md:text-5xl uppercase">Miami</h2>
+        </div>
+      </section>
+
+      <section className="relative leading-0 bg-[#5f4738]">
+        <div className="flex min-h-screen justify-center items-center h-full mx-16">
+          <h2 className="text-2xl text-white md:text-5xl uppercase">
+            Istanbul
           </h2>
         </div>
-      </div>
+      </section>
+
+      <section className="relative leading-0 bg-[#b49e8f]">
+        <div className="flex min-h-screen justify-center items-center h-full mx-16">
+          <h2 className="text-2xl text-white md:text-5xl uppercase">Madrid</h2>
+        </div>
+      </section>
+
+      <section className="relative leading-0">
+        <div className="flex min-h-screen justify-center items-center h-full mx-16">
+          <h2 className="text-2xl text-white md:text-5xl uppercase">
+            Saudi Arabia
+          </h2>
+        </div>
+      </section>
     </div>
   );
 }
