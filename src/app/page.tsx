@@ -1,14 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Play, Pause, VolumeOff, Volume2 } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const LOCATIONS = ["London", "Miami", "Istanbul", "Madrid", "Saudi Arabia"];
 
 export default function Home() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoPaused, setVideoPaused] = useState(true);
+  const [isVideoMuted, setVideoMuted] = useState(true);
+
   useEffect(() => {
     const sections = document.querySelectorAll("section");
 
@@ -42,7 +47,7 @@ export default function Home() {
         scrollTrigger: {
           trigger: "#video-section",
           start: "center",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -64,7 +69,7 @@ export default function Home() {
         scrollTrigger: {
           trigger: "#message-section",
           start: "center",
-          toggleActions: "play none none none",
+          toggleActions: "play none none reverse",
         },
       }
     );
@@ -74,10 +79,30 @@ export default function Home() {
     };
   }, []);
 
+  const toggleVideoPaused = () => {
+    if (videoRef.current) {
+      if (isVideoPaused) {
+        videoRef.current.pause();
+        setVideoPaused(false);
+      } else {
+        videoRef.current.play();
+        setVideoPaused(true);
+      }
+    }
+  };
+
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !videoRef.current.muted;
+      setVideoMuted(!isVideoMuted);
+    }
+  };
+
   return (
     <div className="relative min-h-screen animate-fade-in">
       {/* Background Video */}
       <video
+        ref={videoRef}
         id="video-section"
         className="inset-0 w-full h-screen object-cover z-0"
         poster="/video-first-frame.jpg"
@@ -99,11 +124,27 @@ export default function Home() {
           <p className="text-2xl mb-4 md:mb-0 md:text-4xl lg:text-6xl animate-fade-in-up">
             WHERE NOW IS <br /> FOREVER
           </p>
-          <p className="text-xl md:text-xl lg:text-2xl animate-fade-in-up-delay">
-            Immerse in the essence of the Red Sea while embracing a{" "}
-            <br className="hidden md:block" />
-            sustainable future surrounded by breathtaking beauty.
-          </p>
+          <div className="flex flex-col md:flex-row justify-between items-center animate-fade-in-up-delay">
+            <p className="text-xl md:text-xl lg:text-xl">
+              Immerse in the essence of the Red Sea while embracing a{" "}
+              <br className="hidden lg:block" />
+              sustainable future surrounded by breathtaking beauty.
+            </p>
+            <div className="flex w-full mt-4 md:mt-0 md:w-fit">
+              <div
+                className="w-14 h-14 rounded-full border border-white flex items-center justify-center cursor-pointer mr-4"
+                onClick={toggleVideoPaused}
+              >
+                {isVideoPaused ? <Pause size={18} /> : <Play size={18} />}
+              </div>
+              <div
+                className="w-14 h-14 rounded-full border border-white flex items-center justify-center cursor-pointer"
+                onClick={toggleMute}
+              >
+                {isVideoMuted ? <VolumeOff size={18} /> : <Volume2 size={18} />}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
