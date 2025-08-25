@@ -237,8 +237,13 @@ export default function Navbar() {
               <ChevronDown size={28} />
             )}
           </div>
-          {isMobilePortfolioOpen &&
-            PORTFOLIO_NAV_LINKS.map(({ name, href: portfolioHref }) => (
+          <div
+            className={clsx(
+              "overflow-hidden transition-all duration-300 ease-in-out",
+              isMobilePortfolioOpen ? "max-h-96" : "max-h-0"
+            )}
+          >
+            {PORTFOLIO_NAV_LINKS.map(({ name, href: portfolioHref }) => (
               <Link
                 key={portfolioHref}
                 href={portfolioHref}
@@ -246,13 +251,14 @@ export default function Navbar() {
                   pathname === portfolioHref
                     ? "text-[var(--color-primary)]"
                     : "text-[var(--color-secondary)]",
-                  "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-none"
+                  "text-xl px-7.5 py-4 cursor-pointer border-b border-[var(--color-secondary)] block transition-colors"
                 )}
                 onClick={() => handleClose(false)}
               >
                 <span className="ml-7.5 flex items-center gap-1">{name}</span>
               </Link>
             ))}
+          </div>
           <Link
             href={pathTo.about}
             className={clsx(
