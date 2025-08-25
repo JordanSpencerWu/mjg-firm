@@ -196,7 +196,7 @@ export default function Home() {
           {LOCATIONS.map((location) => (
             <li
               key={location}
-              className="stagger-li mt-4 overflow-hidden h-[96px] cursor-pointer"
+              className="stagger-li mt-4 h-[40px] overflow-hidden md:h-[96px] cursor-pointer"
             >
               {location}
             </li>
