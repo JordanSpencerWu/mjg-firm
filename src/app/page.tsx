@@ -6,10 +6,44 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play, Pause, VolumeOff, Volume2 } from "lucide-react";
 import SplitType from "split-type";
 import ReactLenis, { useLenis } from "@studio-freight/react-lenis";
+import ParallaxImage from "@/components/parallax-image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const LOCATIONS = ["London", "Miami", "Istanbul", "Madrid", "Saudi Arabia"];
+
+const IMAGES = [
+  {
+    url: "/images/travel-and-hospitality.avif",
+    alt: "Travel and Hospitality",
+    height: 400,
+  },
+  {
+    url: "/images/storytelling.avif",
+    alt: "Storytelling",
+    height: 400,
+  },
+  {
+    url: "/images/production.avif",
+    alt: "Production",
+    height: 400,
+  },
+  {
+    url: "/images/development.avif",
+    alt: "Development",
+    height: 400,
+  },
+  {
+    url: "/images/design.avif",
+    alt: "Design",
+    height: 400,
+  },
+  {
+    url: "/images/campaigns.avif",
+    alt: "Campaigns",
+    height: 400,
+  },
+];
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -139,7 +173,7 @@ export default function Home() {
           ref={videoRef}
           id="video-section"
           className="inset-0 w-full h-screen object-cover z-0"
-          poster="/video-first-frame.jpg"
+          poster="/images/video-first-frame.jpg"
           autoPlay
           loop
           muted
@@ -221,9 +255,34 @@ export default function Home() {
 
         <section
           id="locations-section"
-          className="relative leading-0 flex flex-col h-screen justify-center text-center items-center"
+          className="py-36 relative leading-0 flex flex-col justify-center items-center"
         >
-          IMAGES
+          <div className="flex flex-col md:flex-row gap-8 max-w-4xl">
+            <div className="flex flex-col gap-8">
+              {IMAGES.filter((_, index) => index % 2 === 0).map(
+                ({ url, alt, height }) => (
+                  <div
+                    key={url}
+                    className={`h-auto w-96 block overflow-hidden rounded`}
+                  >
+                    <ParallaxImage src={url} alt={alt} />
+                  </div>
+                )
+              )}
+            </div>
+            <div className="flex flex-col gap-8 md:mt-[170px]">
+              {IMAGES.filter((_, index) => index % 2 === 1).map(
+                ({ url, alt, height }) => (
+                  <div
+                    key={url}
+                    className={`h-auto w-96 block overflow-hidden`}
+                  >
+                    <ParallaxImage src={url} alt={alt} />
+                  </div>
+                )
+              )}
+            </div>
+          </div>
         </section>
       </div>
     </ReactLenis>
