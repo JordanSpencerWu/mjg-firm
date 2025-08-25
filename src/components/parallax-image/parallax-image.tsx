@@ -57,7 +57,7 @@ const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
   useLenis(({ scroll }) => {
     if (!bounds.current) return;
     const relativeScroll = scroll - bounds.current.top;
-    targetTranslateY.current = relativeScroll * 0.2;
+    targetTranslateY.current = relativeScroll * 0.1;
   });
 
   return (
