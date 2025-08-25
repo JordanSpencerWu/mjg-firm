@@ -175,7 +175,7 @@ export default function Home() {
         id="message-section"
         className="relative leading-0 gradient-animation"
       >
-        <div className="flex min-h-screen justify-center items-center h-full mx-16">
+        <div className="flex h-screen justify-center items-center mx-8 md:mx-36">
           <p
             id="split-message-section"
             className="text-3xl text-white/12 md:text-5xl"
@@ -190,9 +190,9 @@ export default function Home() {
 
       <section
         id="locations-section"
-        className="relative leading-0 flex flex-col h-screen justify-center text-center items-center mx-16"
+        className="relative leading-0 flex flex-col h-screen justify-center text-center items-center bg-[#b49e8f]"
       >
-        <ul className="text-4xl text-[var(--color-primary)] md:text-8xl font-bold uppercase">
+        <ul className="text-4xl text-[var(--color-primary)] md:text-8xl font-bold uppercase mx-16">
           {LOCATIONS.map((location) => (
             <li
               key={location}

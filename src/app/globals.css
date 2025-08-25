@@ -39,7 +39,7 @@ body {
 .gradient-animation {
   background: linear-gradient(-45deg, #dac7bc, #b49e8f, #5f4738, #30241c);
   background-size: 400% 400%;
-  animation: gradient-move 20s ease infinite;
+  animation: gradient-move 15s ease infinite;
 }
 
 /* Fade-in Animations */
@@ -86,7 +86,7 @@ body {
 }
 
 .stagger-li .block:last-child {
-  color: #b58f79;
+  color: #dac7bc;
 }
 
 .stagger-li .letter {

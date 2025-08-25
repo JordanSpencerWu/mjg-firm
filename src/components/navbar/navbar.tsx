@@ -97,7 +97,7 @@ export default function Navbar() {
                 pathname === pathTo.home && !isOpen
                   ? "text-white"
                   : "text-[var(--color-primary)]",
-                "text-2xl font-bold"
+                "text-2xl font-bold transition-colors"
               )}
               onClick={() => handleClose()}
             >
@@ -177,7 +177,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden">
+          <div className="md:hidden transition-colors">
             <Hamburger
               toggled={isOpen}
               toggle={setOpen}
