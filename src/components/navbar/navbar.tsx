@@ -147,6 +147,16 @@ export default function Navbar() {
                           ? "opacity-100 visible"
                           : "opacity-0 invisible"
                       }`}
+                      style={
+                        pathname === pathTo.home
+                          ? {
+                              backdropFilter: "blur(10px)",
+                              background: "rgba(255, 255, 255, 0.1)",
+                              border: "1px solid rgba(255, 255, 255, 0.2)",
+                              boxShadow: "0 0 10px rgba(255, 255, 255, 0.3)",
+                            }
+                          : {}
+                      }
                     >
                       <div className="py-2">
                         {PORTFOLIO_NAV_LINKS.map(
@@ -155,10 +165,12 @@ export default function Navbar() {
                               key={portfolioHref}
                               href={portfolioHref}
                               className={clsx(
-                                mounted && pathname === portfolioHref
-                                  ? "text-[var(--color-primary)]"
-                                  : "text-[var(--color-secondary)]",
-                                "block px-4 py-2 text-base hover:text-[var(--color-primary)] transition-colors font-medium"
+                                pathname === pathTo.home
+                                  ? "text-white/70 hover:text-white"
+                                  : mounted && pathname === portfolioHref
+                                  ? "text-[var(--color-primary)] hover:text-[var(--color-primary)]"
+                                  : "text-[var(--color-secondary)] hover:text-[var(--color-primary)]",
+                                "block px-4 py-2 text-base transition-colors font-medium"
                               )}
                               onClick={() => {
                                 setIsPortfolioHovered(false);

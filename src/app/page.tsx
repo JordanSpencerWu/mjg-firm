@@ -203,6 +203,13 @@ export default function Home() {
           ))}
         </ul>
       </section>
+
+      <section
+        id="locations-section"
+        className="relative leading-0 flex flex-col h-screen justify-center text-center items-center"
+      >
+        IMAGES
+      </section>
     </div>
   );
 }
