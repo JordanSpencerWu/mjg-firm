@@ -65,6 +65,7 @@ const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
       ref={imageRef}
       src={src}
       alt={alt}
+      className="cursor-pointer opacity-80 hover:scale-105 hover:opacity-100 duration-200"
       style={{
         willChange: "transform",
         transform: "translateY(0) scale(1.25)",

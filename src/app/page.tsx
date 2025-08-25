@@ -16,32 +16,26 @@ const IMAGES = [
   {
     url: "/images/travel-and-hospitality.avif",
     alt: "Travel and Hospitality",
-    height: 400,
   },
   {
     url: "/images/storytelling.avif",
     alt: "Storytelling",
-    height: 400,
   },
   {
     url: "/images/production.avif",
     alt: "Production",
-    height: 400,
   },
   {
     url: "/images/development.avif",
     alt: "Development",
-    height: 400,
   },
   {
     url: "/images/design.avif",
     alt: "Design",
-    height: 400,
   },
   {
     url: "/images/campaigns.avif",
     alt: "Campaigns",
-    height: 400,
   },
 ];
 
@@ -258,26 +252,34 @@ export default function Home() {
           className="py-36 relative leading-0 flex flex-col justify-center items-center"
         >
           <div className="flex flex-col md:flex-row gap-8 max-w-4xl">
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 text-[var(--color-primary)]">
               {IMAGES.filter((_, index) => index % 2 === 0).map(
-                ({ url, alt, height }) => (
-                  <div
-                    key={url}
-                    className={`h-auto w-96 block overflow-hidden rounded`}
-                  >
-                    <ParallaxImage src={url} alt={alt} />
+                ({ url, alt }) => (
+                  <div key={alt}>
+                    <div
+                      className={`h-auto w-96 block overflow-hidden rounded`}
+                    >
+                      <ParallaxImage src={url} alt={alt} />
+                    </div>
+                    <p className="my-6 text-xl font-semibold uppercase text-center">
+                      {alt}
+                    </p>
                   </div>
                 )
               )}
             </div>
-            <div className="flex flex-col gap-8 md:mt-[170px]">
+            <div className="flex flex-col gap-8 md:mt-[170px] text-[var(--color-primary)]">
               {IMAGES.filter((_, index) => index % 2 === 1).map(
-                ({ url, alt, height }) => (
-                  <div
-                    key={url}
-                    className={`h-auto w-96 block overflow-hidden`}
-                  >
-                    <ParallaxImage src={url} alt={alt} />
+                ({ url, alt }) => (
+                  <div key={alt}>
+                    <div
+                      className={`h-auto w-96 block overflow-hidden rounded`}
+                    >
+                      <ParallaxImage src={url} alt={alt} />
+                    </div>
+                    <p className="my-6 text-xl font-semibold uppercase text-center">
+                      {alt}
+                    </p>
                   </div>
                 )
               )}
