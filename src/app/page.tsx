@@ -39,7 +39,7 @@ const IMAGES = [
   },
 ]
 
-export default function Home() {
+export default function HomePage() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isVideoPaused, setVideoPaused] = useState(true)
   const [isVideoMuted, setVideoMuted] = useState(true)

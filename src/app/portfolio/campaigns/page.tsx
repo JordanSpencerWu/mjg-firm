@@ -1,4 +1,4 @@
-export default function Home() {
+export default function PortfolioCampaignsPage() {
   return (
     <main className="animate-fade-in flex h-full w-full items-center justify-center font-sans">
       <div>CAMPAIGNS</div>
