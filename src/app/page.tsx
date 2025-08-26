@@ -138,7 +138,7 @@ export default function HomePage() {
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
-  }, [])
+  }, [lenis])
 
   const toggleVideoPaused = () => {
     if (videoRef.current) {

@@ -70,7 +70,7 @@ export default function Navbar() {
     if (pathname.includes('/portfolio')) {
       setMobilePortfolioOpen(true)
     }
-  }, [])
+  }, [pathname])
 
   useEffect(() => {
     if (isOpen && lenis) {

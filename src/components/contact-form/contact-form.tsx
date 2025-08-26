@@ -1,6 +1,6 @@
 'use client'
 
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm, SubmitHandler, FieldErrors } from 'react-hook-form'
 import { CircleAlert } from 'lucide-react'
 
 type IFormInput = {
@@ -23,7 +23,7 @@ export default function ContactForm() {
     // Handle form submission here
   }
 
-  const onError = (errors: any) => {
+  const onError = (errors: FieldErrors<IFormInput>) => {
     console.log('Form validation errors:', errors)
   }
 

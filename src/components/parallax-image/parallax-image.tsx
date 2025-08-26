@@ -1,85 +1,88 @@
-"use client";
+'use client'
 
-import React, { useRef, useEffect } from "react";
-import { useLenis } from "@studio-freight/react-lenis";
+import React, { useRef, useEffect } from 'react'
+import { useLenis } from '@studio-freight/react-lenis'
+import Image from 'next/image'
 
 const lerp = (start: number, end: number, factor: number) =>
-  start + (end - start) * factor;
+  start + (end - start) * factor
 
 export default function ParallaxImage({
   src,
   alt,
 }: {
-  src: string;
-  alt: string;
+  src: string
+  alt: string
 }) {
-  const imageRef = useRef<HTMLImageElement>(null);
-  const bounds = useRef<{ top: number; bottom: number } | null>(null);
-  const currentTranslateY = useRef(0);
-  const targetTranslateY = useRef(0);
-  const rafId = useRef<number | null>(null);
+  const imageRef = useRef<HTMLImageElement>(null)
+  const bounds = useRef<{ top: number; bottom: number } | null>(null)
+  const currentTranslateY = useRef(0)
+  const targetTranslateY = useRef(0)
+  const rafId = useRef<number | null>(null)
 
   useEffect(() => {
     const updateBounds = () => {
       if (imageRef.current) {
-        const rect = imageRef.current.getBoundingClientRect();
+        const rect = imageRef.current.getBoundingClientRect()
         bounds.current = {
           top: rect.top + window.scrollY,
           bottom: rect.bottom + window.scrollY,
-        };
+        }
       }
-    };
+    }
 
-    updateBounds();
-    window.addEventListener("resize", updateBounds);
+    updateBounds()
+    window.addEventListener('resize', updateBounds)
 
     const animate = () => {
       if (imageRef.current) {
         currentTranslateY.current = lerp(
           currentTranslateY.current,
           targetTranslateY.current,
-          0.1
-        );
+          0.1,
+        )
 
         if (
           Math.abs(currentTranslateY.current - targetTranslateY.current) > 0.01
         ) {
-          imageRef.current.style.transform = `translateY(${currentTranslateY.current}px) scale(1.08)`;
+          imageRef.current.style.transform = `translateY(${currentTranslateY.current}px) scale(1.08)`
         }
       }
-      rafId.current = requestAnimationFrame(animate);
-    };
+      rafId.current = requestAnimationFrame(animate)
+    }
 
-    animate();
+    animate()
 
     return () => {
-      window.removeEventListener("resize", updateBounds);
+      window.removeEventListener('resize', updateBounds)
       if (rafId.current) {
-        cancelAnimationFrame(rafId.current);
+        cancelAnimationFrame(rafId.current)
       }
-    };
-  }, []);
+    }
+  }, [])
 
   useLenis(({ scroll }) => {
-    if (!bounds.current) return;
-    const relativeScroll = scroll - bounds.current.top;
-    targetTranslateY.current = relativeScroll * 0.1;
-  });
+    if (!bounds.current) return
+    const relativeScroll = scroll - bounds.current.top
+    targetTranslateY.current = relativeScroll * 0.1
+  })
 
   return (
-    <img
+    <Image
       ref={imageRef}
       src={src}
       alt={alt}
-      className="cursor-pointer opacity-80 hover:scale-105 hover:opacity-100 duration-200"
+      width={400}
+      height={300}
+      className="cursor-pointer opacity-80 duration-200 hover:scale-105 hover:opacity-100"
       style={{
-        willChange: "transform",
-        transform: "translateY(0) scale(1.25)",
-        objectFit: "fill",
-        objectPosition: "center",
-        width: "100%",
-        height: "100%",
+        willChange: 'transform',
+        transform: 'translateY(0) scale(1.25)',
+        objectFit: 'fill',
+        objectPosition: 'center',
+        width: '100%',
+        height: '100%',
       }}
     />
-  );
+  )
 }
