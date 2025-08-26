@@ -160,7 +160,14 @@ export default function Home() {
   }
 
   return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.1,
+        duration: 1.5,
+        smoothWheel: true,
+      }}
+    >
       <div className="animate-fade-in relative min-h-screen">
         {/* Background Video */}
         <video

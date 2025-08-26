@@ -8,6 +8,7 @@ import clsx from 'clsx'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { pathTo } from '@/utils/routes'
 import { FaInstagram } from 'react-icons/fa'
+import { useLenis } from '@studio-freight/react-lenis'
 
 const HOME_NAV_NAME = 'Home'
 const ABOUT_NAV_NAME = 'About Us'
@@ -61,6 +62,7 @@ export default function Navbar() {
   const [isPortfolioHovered, setIsPortfolioHovered] = useState(false)
   const pathname = usePathname()
   const [mounted, setMounted] = useState(false)
+  const lenis = useLenis()
 
   useEffect(() => {
     setMounted(true)
@@ -69,6 +71,18 @@ export default function Navbar() {
       setMobilePortfolioOpen(true)
     }
   }, [])
+
+  useEffect(() => {
+    if (isOpen && lenis) {
+      lenis.stop()
+    } else {
+      lenis?.start()
+    }
+
+    return () => {
+      lenis?.start()
+    }
+  }, [isOpen, lenis])
 
   const handleClose = (shouldCloseMobilePortfolioOpen = true) => {
     setOpen(false)
