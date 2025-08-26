@@ -75,12 +75,16 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen && lenis) {
       lenis.stop()
+      document.body.style.position = 'fixed'
+      document.body.style.width = '100%'
     } else {
       lenis?.start()
+      document.body.style.position = 'static'
     }
 
     return () => {
       lenis?.start()
+      document.body.style.position = 'static'
     }
   }, [isOpen, lenis])
 
