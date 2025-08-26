@@ -1,1 +1,1 @@
-export { default } from "./parallax-image";
+export { default } from './parallax-image'

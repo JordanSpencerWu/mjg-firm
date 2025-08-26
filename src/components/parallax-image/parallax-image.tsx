@@ -6,7 +6,13 @@ import { useLenis } from "@studio-freight/react-lenis";
 const lerp = (start: number, end: number, factor: number) =>
   start + (end - start) * factor;
 
-const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
+export default function ParallaxImage({
+  src,
+  alt,
+}: {
+  src: string;
+  alt: string;
+}) {
   const imageRef = useRef<HTMLImageElement>(null);
   const bounds = useRef<{ top: number; bottom: number } | null>(null);
   const currentTranslateY = useRef(0);
@@ -76,6 +82,4 @@ const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
       }}
     />
   );
-};
-
-export default ParallaxImage;
+}

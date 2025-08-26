@@ -1,7 +1,7 @@
 export default function Home() {
   return (
-    <main className="font-sans h-full w-full flex justify-center items-center animate-fade-in">
+    <main className="animate-fade-in flex h-full w-full items-center justify-center font-sans">
       <div>DEVELOPMENT</div>
     </main>
-  );
+  )
 }
