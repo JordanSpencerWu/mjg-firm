@@ -99,7 +99,7 @@ export default function Navbar() {
   return (
     <nav
       className={clsx(
-        isOpen && 'h-screen',
+        isOpen && 'h-[100dvh]',
         isOpen || (pathname === pathTo.home && 'absolute'),
         pathname === pathTo.home && !isOpen
           ? 'bg-transparent'
