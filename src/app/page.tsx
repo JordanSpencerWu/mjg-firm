@@ -55,14 +55,7 @@ export default function HomePage() {
   const lenis = useLenis()
 
   useEffect(() => {
-    if (lenis) {
-      lenis.on('scroll', ScrollTrigger.update)
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000)
-      })
-      gsap.ticker.lagSmoothing(0)
-    }
-
+    if (!lenis) return
     const locations = document.querySelectorAll<HTMLElement>('.stagger-li')
 
     locations.forEach((element) => {
@@ -146,6 +139,16 @@ export default function HomePage() {
 
     return () => {
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+    }
+  }, [lenis])
+
+  useEffect(() => {
+    if (lenis) {
+      lenis.on('scroll', ScrollTrigger.update)
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000)
+      })
+      gsap.ticker.lagSmoothing(0)
     }
   }, [lenis])
 
