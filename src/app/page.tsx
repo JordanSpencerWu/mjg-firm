@@ -1,12 +1,15 @@
 'use client'
 
 import { useEffect, useState, useRef } from 'react'
+import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Play, Pause, VolumeOff, Volume2 } from 'lucide-react'
 import SplitType from 'split-type'
 import ReactLenis, { useLenis } from '@studio-freight/react-lenis'
 import ParallaxImage from '@/components/parallax-image'
+import GoogleMap from '@/components/google-map'
+import { pathTo } from '@/utils/routes'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,26 +19,32 @@ const IMAGES = [
   {
     url: '/images/travel-and-hospitality.avif',
     alt: 'Travel and Hospitality',
+    href: pathTo.portfolioTravelAndHospitality,
   },
   {
     url: '/images/storytelling.avif',
     alt: 'Storytelling',
+    href: pathTo.portfolioStorytelling,
   },
   {
     url: '/images/production.avif',
     alt: 'Production',
+    href: pathTo.portfolioProduction,
   },
   {
     url: '/images/development.avif',
     alt: 'Development',
+    href: pathTo.portfolioDevelopment,
   },
   {
     url: '/images/design.avif',
     alt: 'Design',
+    href: pathTo.portfolioDesign,
   },
   {
     url: '/images/campaigns.avif',
     alt: 'Campaigns',
+    href: pathTo.portfolioCampaigns,
   },
 ]
 
@@ -261,12 +270,14 @@ export default function HomePage() {
           <div className="flex max-w-4xl flex-col gap-8 md:flex-row">
             <div className="flex flex-col gap-8 text-[var(--color-primary)]">
               {IMAGES.filter((_, index) => index % 2 === 0).map(
-                ({ url, alt }) => (
+                ({ url, alt, href }) => (
                   <div key={alt}>
                     <div
                       className={`block h-auto w-96 overflow-hidden rounded`}
                     >
-                      <ParallaxImage src={url} alt={alt} />
+                      <Link href={href}>
+                        <ParallaxImage src={url} alt={alt} />
+                      </Link>
                     </div>
                     <p className="my-5 text-center text-xl font-semibold uppercase">
                       {alt}
@@ -277,12 +288,14 @@ export default function HomePage() {
             </div>
             <div className="flex flex-col gap-8 text-[var(--color-primary)] md:mt-[170px]">
               {IMAGES.filter((_, index) => index % 2 === 1).map(
-                ({ url, alt }) => (
+                ({ url, alt, href }) => (
                   <div key={alt}>
                     <div
                       className={`block h-auto w-96 overflow-hidden rounded`}
                     >
-                      <ParallaxImage src={url} alt={alt} />
+                      <Link href={href}>
+                        <ParallaxImage src={url} alt={alt} />
+                      </Link>
                     </div>
                     <p className="my-5 text-center text-xl font-semibold uppercase">
                       {alt}
@@ -293,6 +306,10 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        <div className="mx-8 mb-8 flex justify-center">
+          <GoogleMap />
+        </div>
       </div>
     </ReactLenis>
   )

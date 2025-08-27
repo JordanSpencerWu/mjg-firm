@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@studio-freight/react-lenis": "^0.0.47",
+    "@vis.gl/react-google-maps": "^1.5.5",
     "clsx": "^2.1.1",
     "gsap": "^3.13.0",
     "hamburger-react": "^2.5.2",
